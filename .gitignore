@@ -1,0 +1,21 @@
+# Build output
+dist
+*.tsbuildinfo
+
+# Testing
+coverage
+*.lcov
+
+# Ladle (component preview)
+.ladle
+build-ladle
+
+# Turborepo
+.turbo
+
+# Dependencies (inherited from root, but explicit here)
+node_modules
+
+# Temporary files
+*.tmp
+*.temp
