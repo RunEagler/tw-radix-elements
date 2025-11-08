@@ -25,7 +25,8 @@ export default defineConfig(() => ({
     },
   },
   build: {
-    target: 'es2022',
+    target: 'es2024',
+    chunkSizeWarningLimit: 500,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'UIComponents',
@@ -52,6 +53,9 @@ export default defineConfig(() => ({
         'class-variance-authority',
       ],
       output: {
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        interop: 'auto',
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',

@@ -12,7 +12,6 @@ A collection of accessible and reusable React components built on top of Tailwin
 - 📦 **Tree-shakable**: Import only what you need
 - 🔧 **TypeScript**: Full type safety and IntelliSense support
 - ✅ **Well-tested**: Comprehensive test coverage with Vitest + React Testing Library
-- 🎭 **Component Preview**: Interactive component playground with Ladle
 
 ## Installation
 
