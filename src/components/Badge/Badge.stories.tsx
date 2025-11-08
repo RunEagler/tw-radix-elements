@@ -1,81 +1,153 @@
 import type { Story } from '@ladle/react';
 import { Badge, type BadgeProps } from './Badge';
 
-export const Default: Story = () => <Badge>Badge</Badge>;
+const IconButton = ({ children }: { children: React.ReactNode }) => (
+  <button
+    type="button"
+    className="flex items-center justify-center w-12 h-12 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+  >
+    {children}
+  </button>
+);
+
+export const Default: Story = () => (
+  <Badge count={5}>
+    <IconButton>
+      <span className="text-2xl">🔔</span>
+    </IconButton>
+  </Badge>
+);
 
 export const Variants: Story = () => (
-  <div className="flex flex-wrap gap-4">
-    <Badge variant="default">Default</Badge>
-    <Badge variant="secondary">Secondary</Badge>
-    <Badge variant="destructive">Destructive</Badge>
-    <Badge variant="success">Success</Badge>
-    <Badge variant="warning">Warning</Badge>
-    <Badge variant="outline">Outline</Badge>
+  <div className="flex flex-wrap gap-8">
+    <Badge count={5} variant="default">
+      <IconButton>
+        <span className="text-2xl">🔔</span>
+      </IconButton>
+    </Badge>
+    <Badge count={3} variant="secondary">
+      <IconButton>
+        <span className="text-2xl">📧</span>
+      </IconButton>
+    </Badge>
+    <Badge count={99} variant="destructive">
+      <IconButton>
+        <span className="text-2xl">⚠️</span>
+      </IconButton>
+    </Badge>
+    <Badge count={7} variant="success">
+      <IconButton>
+        <span className="text-2xl">✅</span>
+      </IconButton>
+    </Badge>
+    <Badge count={2} variant="warning">
+      <IconButton>
+        <span className="text-2xl">⭐</span>
+      </IconButton>
+    </Badge>
+    <Badge count={12} variant="info">
+      <IconButton>
+        <span className="text-2xl">ℹ️</span>
+      </IconButton>
+    </Badge>
   </div>
 );
 
 export const Sizes: Story = () => (
-  <div className="flex items-center gap-4">
-    <Badge size="sm">Small</Badge>
-    <Badge size="default">Default</Badge>
-    <Badge size="lg">Large</Badge>
-  </div>
-);
-
-export const Rounded: Story = () => (
-  <div className="flex gap-4">
-    <Badge rounded="default">Default (Full)</Badge>
-    <Badge rounded="square">Square</Badge>
-    <Badge rounded="none">None</Badge>
-  </div>
-);
-
-export const WithIcon: Story = () => (
-  <div className="flex gap-4">
-    <Badge icon={<span>⭐</span>}>With Icon</Badge>
-    <Badge variant="success" icon={<span>✓</span>}>
-      Success
+  <div className="flex items-center gap-8">
+    <Badge count={5} size="sm">
+      <IconButton>
+        <span className="text-2xl">🔔</span>
+      </IconButton>
     </Badge>
-    <Badge variant="warning" icon={<span>⚠</span>}>
-      Warning
+    <Badge count={5} size="default">
+      <IconButton>
+        <span className="text-2xl">🔔</span>
+      </IconButton>
+    </Badge>
+    <Badge count={5} size="lg">
+      <IconButton>
+        <span className="text-2xl">🔔</span>
+      </IconButton>
     </Badge>
   </div>
 );
 
-export const Removable: Story = () => (
-  <div className="flex gap-4">
-    <Badge
-      removable
-      onRemove={() => {
-        console.log('Badge removed');
-      }}
-    >
-      Removable
+export const NumberBadge: Story = () => (
+  <div className="flex gap-8">
+    <Badge count={3}>
+      <IconButton>
+        <span className="text-2xl">💬</span>
+      </IconButton>
     </Badge>
-    <Badge
-      variant="success"
-      removable
-      onRemove={() => {
-        console.log('Success badge removed');
-      }}
-    >
-      Click X to remove
+    <Badge count={99}>
+      <IconButton>
+        <span className="text-2xl">📬</span>
+      </IconButton>
+    </Badge>
+    <Badge count={150} max={99}>
+      <IconButton>
+        <span className="text-2xl">🔔</span>
+      </IconButton>
+    </Badge>
+    <Badge count={1000} max={999}>
+      <IconButton>
+        <span className="text-2xl">👥</span>
+      </IconButton>
     </Badge>
   </div>
 );
 
-export const Playground: Story<BadgeProps> = props => <Badge {...props}>Badge</Badge>;
+export const DotBadge: Story = () => (
+  <div className="flex gap-8">
+    <Badge dot variant="default">
+      <IconButton>
+        <span className="text-2xl">🔔</span>
+      </IconButton>
+    </Badge>
+    <Badge dot variant="destructive">
+      <IconButton>
+        <span className="text-2xl">📧</span>
+      </IconButton>
+    </Badge>
+    <Badge dot variant="success">
+      <IconButton>
+        <span className="text-2xl">✅</span>
+      </IconButton>
+    </Badge>
+  </div>
+);
+
+export const WithAvatar: Story = () => (
+  <div className="flex gap-8">
+    <Badge count={5}>
+      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-400" />
+    </Badge>
+    <Badge dot variant="success">
+      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400" />
+    </Badge>
+  </div>
+);
+
+export const Playground: Story<BadgeProps> = props => (
+  <Badge {...props}>
+    <IconButton>
+      <span className="text-2xl">🔔</span>
+    </IconButton>
+  </Badge>
+);
 
 Playground.args = {
   variant: 'default',
   size: 'default',
-  rounded: 'default',
-  removable: false,
+  dot: false,
+  count: 5,
+  max: 99,
 };
 
 Playground.argTypes = {
   variant: {
-    options: ['default', 'secondary', 'destructive', 'success', 'warning', 'outline'],
+    options: ['default', 'secondary', 'destructive', 'success', 'warning', 'info'],
     control: { type: 'select' },
     defaultValue: 'default',
   },
@@ -84,13 +156,16 @@ Playground.argTypes = {
     control: { type: 'select' },
     defaultValue: 'default',
   },
-  rounded: {
-    options: ['default', 'square', 'none'],
-    control: { type: 'select' },
-    defaultValue: 'default',
-  },
-  removable: {
+  dot: {
     control: { type: 'boolean' },
     defaultValue: false,
+  },
+  count: {
+    control: { type: 'number' },
+    defaultValue: 5,
+  },
+  max: {
+    control: { type: 'number' },
+    defaultValue: 99,
   },
 };
