@@ -1,5 +1,5 @@
-import { cn } from '@ui/lib/utils';
 import { useRipple } from '@ui/hooks/useRipple';
+import { cn } from '@ui/lib/utils';
 import * as React from 'react';
 
 export interface WithRippleProps {

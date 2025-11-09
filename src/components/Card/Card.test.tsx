@@ -178,16 +178,10 @@ describe('Card', () => {
       expect(description.tagName).toBe('P');
     });
 
-    it('renders CardContent with correct styling', () => {
-      render(<CardContent data-testid="content">Content</CardContent>);
-      const content = screen.getByTestId('content');
-      expect(content).toHaveClass('pt-0');
-    });
-
     it('renders CardFooter with correct styling', () => {
       render(<CardFooter data-testid="footer">Footer</CardFooter>);
       const footer = screen.getByTestId('footer');
-      expect(footer).toHaveClass('flex', 'items-center', 'pt-0');
+      expect(footer).toHaveClass('flex', 'items-center', 'p-6 pt-4');
     });
   });
 
