@@ -1,3 +1,4 @@
+export type { TablePaginationProps } from './Table';
 export {
   Table,
   TableBody,
@@ -6,5 +7,6 @@ export {
   TableFooter,
   TableHead,
   TableHeader,
+  TablePagination,
   TableRow,
 } from './Table';

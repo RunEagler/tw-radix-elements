@@ -22,7 +22,7 @@ const progressVariants = cva('relative h-4 w-full overflow-hidden rounded-full b
   },
 });
 
-const progressBarVariants = cva('h-full w-full flex-1 transition-all duration-300 ease-in-out', {
+const progressBarVariants = cva('h-full w-full flex-1 transition-all duration-300 ease-out', {
   variants: {
     variant: {
       default: 'bg-primary',
@@ -30,18 +30,15 @@ const progressBarVariants = cva('h-full w-full flex-1 transition-all duration-30
       warning: 'bg-yellow-500',
       error: 'bg-destructive',
     },
-    animated: {
-      true: 'animate-pulse',
-      false: '',
-    },
     striped: {
-      true: 'bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%] animate-[shimmer_2s_infinite]',
+      true:
+        'bg-gradient-to-r from-transparent to-transparent bg-[linear-gradient(135deg,rgba(255,255,255,0.4)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.4)_50%,rgba(255,255,255,0.4)_75%,transparent_75%,transparent)] ' +
+        'bg-[length:16px_16px] animate-[shimmer_10s_linear_infinite]',
       false: '',
     },
   },
   defaultVariants: {
     variant: 'default',
-    animated: false,
     striped: false,
   },
 });
@@ -51,35 +48,24 @@ export interface ProgressProps
     VariantProps<typeof progressVariants> {
   value?: number;
   max?: number;
-  showLabel?: boolean;
   label?: string;
-  animated?: boolean;
   striped?: boolean;
 }
 
 const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
-  (
-    {
-      className,
-      value = 0,
-      max = 100,
-      size,
-      variant,
-      showLabel = false,
-      label,
-      animated = false,
-      striped = false,
-      ...props
-    },
-    ref
-  ) => {
+  ({ className, value = 0, max = 100, size, variant, label, striped = false, ...props }, ref) => {
     const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
+    const [mounted, setMounted] = React.useState(false);
+
+    React.useEffect(() => {
+      setMounted(true);
+    }, []);
 
     return (
       <div className="w-full space-y-2">
-        {(showLabel || label) && (
+        {label && (
           <div className="flex justify-between text-sm">
-            <span className="text-foreground font-medium">{label || 'Progress'}</span>
+            <span className="font-medium text-foreground">{label}</span>
             <span className="text-muted-foreground">{percentage.toFixed(0)}%</span>
           </div>
         )}
@@ -97,11 +83,10 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
             className={cn(
               progressBarVariants({
                 variant,
-                animated: animated || undefined,
                 striped: striped || undefined,
               })
             )}
-            style={{ width: `${percentage}%` }}
+            style={{ width: mounted ? `${percentage}%` : '0%' }}
           />
         </div>
       </div>

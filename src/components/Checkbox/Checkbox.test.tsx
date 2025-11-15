@@ -25,7 +25,6 @@ describe('Checkbox', () => {
       expect(screen.getByText('Get weekly updates')).toBeInTheDocument();
     });
 
-
     it('renders checked state', () => {
       render(<Checkbox checked />);
       const checkbox = screen.getByRole('checkbox');
